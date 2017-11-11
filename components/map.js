@@ -1,11 +1,36 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { MapView } from 'expo';
+import { Marker } from './marker';
 
 export class Mapview extends React.Component {
+  // randomColorGen = () => {
+  //   numericParam = () => {
+  //     return 155 + Math.round(Math.random()*100)
+  //   }
+  //   return "rgb(" + Math.round(Math.random()*numericParam()) + ","
+  //                 + Math.round(Math.random()*numericParam()) + ","
+  //                 + Math.round(Math.random()*numericParam()) + ")"
+  // }
+  renderAll = () => {
+    if (this.props.data.length)
+      return this.props.data.map( el => {
+        return this.renderMarker(el);
+      });
+  }
+
+  renderMarker = (person) => {
+    return (
+      <MapView.Marker key={person.key} coordinate={{latitude:person.data.location.coords.latitude, longitude:person.data.location.coords.longitude}}>
+        <View>
+          <Marker info={person.data}/>
+        </View>
+      </MapView.Marker>
+      );
+  }
+
   render() {
-    console.log(this.props);
     return (
       <View style={styles.container}>
         <MapView
@@ -16,12 +41,9 @@ export class Mapview extends React.Component {
             latitudeDelta: 0.0922/4,//these DELTAS control the zoom!
             longitudeDelta: 0.0421/4,
           }}
+          loadingEnabled={true}
         >
-          <MapView.Marker
-            coordinate={{latitude:this.props.info.coords.latitude, longitude:this.props.info.coords.longitude}}
-            // image={require("../assets/images/map-marker-icon.png")}
-            // anchor={{x:0.5,y:1}}
-          />
+          {this.renderAll()}
         </MapView>
       </View>
     );

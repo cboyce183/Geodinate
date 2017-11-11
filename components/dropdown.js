@@ -15,26 +15,33 @@ export class Dropdown extends React.Component {
     }
   }
 
+  userInfoCallbackBeta = (data) => {
+    return data;
+  }
+
   renderDropdown = () => {
-    if (this.state.loginPressed) return <Login />;
+    if (this.state.loginPressed) return <Login getInfo={this.userInfoCallbackBeta}/>;
     else if (this.state.managegroups) return <ManageGroups />
   }
 
   render () {
     return (
       <View style={styles.container}>
-        <TouchableHighlight onPress={this.loginDropdown} style={styles.subcontainer}>
-          <View style={styles.box}>
-            <Ionicons name="ios-person-add-outline" size={40} color="black"/>
-            <Text style={styles.subtitle}>Login</Text>
-          </View>
-        </TouchableHighlight>
+
         <TouchableHighlight onPress={this.managegroupsDropdown} style={styles.subcontainer}>
           <View style={styles.box}>
             <Ionicons name="ios-people-outline" size={40} color="black"/>
             <Text style={styles.subtitle}>Manage Groups</Text>
           </View>
         </TouchableHighlight>
+
+        <TouchableHighlight onPress={this.loginDropdown} style={styles.subcontainer}>
+          <View style={styles.box}>
+            <Ionicons name="ios-exit-outline" size={40} color="black"/>
+            <Text style={styles.subtitle}>Log out</Text>
+          </View>
+        </TouchableHighlight>
+
         {this.renderDropdown()}
       </View>
     )

@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableHighlight, Image, AsyncStorage } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+const serverURL = 'ws://Charless-Macbook-Pro.local:3000/websocket';
+
 export class Login extends React.Component {
   constructor() {
     super();
@@ -9,56 +11,22 @@ export class Login extends React.Component {
       picture: null,
       username: null,
     }
+    
   }
 
-  async logIn() {
-    const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync('128276447862500', {
-        permissions: ['public_profile'],
-      });
-    if (type === 'success') {
-
-      const response = await fetch(
-        `https://graph.facebook.com/me?access_token=${token}`)
-        .then(data => data.json());
-
-      const profilePicFetch = await fetch(
-        `https://graph.facebook.com/${response.id}/picture?type=small&width=50&height=50`
-      )
-      .then(data => {
-        console.log('raw data', data);
-        return data;
-      })
-      .then(data => data.url)
-      .catch(e => console.log(e));
-
-      const userInfo = {
-        id: response.id,
-        username: response.name,
-        picture: profilePicFetch,
-      }
-
-      const firstName = userInfo.username.split(' ').slice(0,1);
-      this.setState({picture:userInfo.picture, username:firstName[0]});
-    }
-    console.log('Login status: ', type);
+  async logOut() {
+    console.log('logged out');
   }
 
   render() {
-    if (!this.state.username && !this.state.picture) return (
-      <TouchableHighlight onPress={this.logIn.bind(this)} style={styles.container}>
+    return (
+      <TouchableHighlight onPress={this.logOut.bind(this)} style={styles.container}>
         <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
-          <Text style={{fontSize:20, color:'white'}}>Login with Facebook   </Text>
+          <Text style={{fontSize:20, color:'white'}}>Logged out </Text>
           <Ionicons name="logo-facebook" size={40} color="white" />
         </View>
       </TouchableHighlight>
     );
-    return (
-      <View style={styles.container}>
-        <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
-          <Text style={{fontSize:20, color:'white'}}>Welcome {this.state.username}!</Text>
-        </View>
-      </View>
-    )
   }
 }
 

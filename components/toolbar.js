@@ -1,13 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Dropdown } from './dropdown';
 export class Toolbar extends React.Component {
   constructor() {
     super();
     this.state = {
-      dropdownPressed: false
+      dropdownPressed: false,
+      loggedin: false,
     }
+  }
+
+  userInfoCallbackAlpha = (data) => {
+    return data;
   }
 
   display_dropdown = () => {
@@ -15,38 +20,53 @@ export class Toolbar extends React.Component {
     this.setState({dropdownPressed: !this.state.dropdownPressed});
   }
 
-  render() {
-    if (this.state.dropdownPressed) return (
-      <View style={styles.div}>
-        <View style={styles.containerSuper}>
-          <View style={styles.container}>
-            <Ionicons name="ios-contacts-outline" size={40} color="black" />
-            <Text style={styles.title}>Geo-dinate</Text>
-            <TouchableHighlight onPress={this.display_dropdown}>
-              <Ionicons name="ios-arrow-dropdown" size={40} color="black" />
-            </TouchableHighlight>
-          </View>
-        </View>
-        <Dropdown/>
-      </View>
-    )
+  picToggle = () => {
+    if (this.props.profilepic) return <Image style={styles.profPic} source={{uri: this.props.profilepic}}/>
+    return <Ionicons name="ios-contacts-outline" size={40} color="black" />
+  }
+
+  dropdownToggle = () => {
     if (!this.state.dropdownPressed) return (
       <View style={styles.div}>
         <View style={styles.containerSuper}>
           <View style={styles.container}>
-            <Ionicons name="ios-contacts-outline" size={40} color="black" />
+            {this.picToggle()}
             <Text style={styles.title}>Geo-dinate</Text>
             <TouchableHighlight onPress={this.display_dropdown}>
-              <Ionicons name="ios-arrow-dropdown" size={40} color="black" />
+              <Ionicons name="ios-menu-outline" size={40} color="black" />
             </TouchableHighlight>
           </View>
         </View>
       </View>
-    );
+    )
+    return (
+      <View style={styles.div}>
+        <View style={styles.containerSuper}>
+          <View style={styles.container}>
+            {this.picToggle()}
+            <Text style={styles.title}>Geo-dinate</Text>
+            <TouchableHighlight onPress={this.display_dropdown}>
+              <Ionicons name="ios-arrow-dropup" size={40} color="black" />
+            </TouchableHighlight>
+          </View>
+        </View>
+        <Dropdown getInfo={this.userInfoCallbackAlpha}/>
+      </View>
+    )
+  }
+  render() {
+    return this.dropdownToggle();
   }
 }
 
 const styles = StyleSheet.create({
+  profPic: {
+    width: 40,
+    height: 40,
+    borderWidth:1,
+    borderRadius:20,
+    padding:5
+  },
   title: {
     fontSize: 25,
     fontFamily: 'Pacifico'
