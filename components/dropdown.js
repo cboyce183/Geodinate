@@ -30,14 +30,14 @@ export class Dropdown extends React.Component {
 
         <TouchableHighlight onPress={this.managegroupsDropdown} style={styles.subcontainer}>
           <View style={styles.box}>
-            <Ionicons name="ios-people-outline" size={40} color="black"/>
+            <Ionicons name="ios-people-outline" size={40} color="grey"/>
             <Text style={styles.subtitle}>Manage Groups</Text>
           </View>
         </TouchableHighlight>
 
         <TouchableHighlight onPress={this.loginDropdown} style={styles.subcontainer}>
           <View style={styles.box}>
-            <Ionicons name="ios-exit-outline" size={40} color="black"/>
+            <Ionicons name="ios-exit-outline" size={40} color="grey"/>
             <Text style={styles.subtitle}>Log out</Text>
           </View>
         </TouchableHighlight>
@@ -60,6 +60,7 @@ export class Dropdown extends React.Component {
 const styles = StyleSheet.create({
   subtitle: {
     fontSize: 20,
+    color:'grey'
   },
   container: {
     zIndex: 1000,
@@ -82,11 +83,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     borderBottomWidth: 1.5,
-    borderColor: 'black',
+    borderColor: '#ddd',
     backgroundColor: 'rgba(255, 255, 255, 0.75)',
   },
   subcontainer: {
     paddingRight: 5,
+    paddingLeft: 5,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
