@@ -21,8 +21,9 @@ export class Toolbar extends React.Component {
   }
 
   picToggle = () => {
-    if (this.props.profilepic) return <Image style={styles.profPic} source={{uri: this.props.profilepic}}/>
-    return <Ionicons name="ios-contacts-outline" size={40} color="black" />
+    return this.props.profilepic ? <Image style={styles.profPic} source={{uri: this.props.profilepic}}/>
+    : <Image source={require("../assets/images/logo.png")} style={styles.logo}/>;
+
   }
 
   dropdownToggle = () => {
@@ -65,6 +66,11 @@ const styles = StyleSheet.create({
     height: 40,
     borderWidth:1,
     borderRadius:20,
+    padding:5
+  },
+  logo: {
+    width: 40,
+    height: 60,
     padding:5
   },
   title: {

@@ -11,7 +11,7 @@ export class Login extends React.Component {
       picture: null,
       username: null,
     }
-    
+
   }
 
   async logOut() {

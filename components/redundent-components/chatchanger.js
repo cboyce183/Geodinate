@@ -6,13 +6,13 @@ import { Notifications } from 'expo';
 import SocketIOClient from 'socket.io-client';
 
 
-export class Ping extends React.Component {
+export class Chatchanger extends React.Component {
   render() {
     return (
-      <TouchableHighlight onPress={this.props.pinger} style={styles.container}>
+      <TouchableHighlight style={styles.container} onPress={this.props.handler}>
         <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around'}}>
-          <Text style={{fontSize:20, color:'white'}}>Ping!</Text>
-          <Ionicons name="ios-wifi" size={40} color="white" />
+          <Text style={{fontSize:20, color:'white'}}>Chat  </Text>
+          <Ionicons name="ios-chatbubbles-outline" size={40} color="white" />
         </View>
       </TouchableHighlight>
     );
@@ -22,14 +22,15 @@ export class Ping extends React.Component {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    backgroundColor: '#9C7A97',
+    backgroundColor: 'rgb(124, 208, 255)',
     width: '30%',
-    borderBottomWidth:2,
-    borderColor: '#8A7090',
-    top: '67%',
-    paddingLeft:5,
-    paddingRight:5,
-    shadowOffset:{  width: 7,  height: 7,  },
+    borderWidth:2,
+    borderColor: 'rgb(124, 208, 255)',
+    borderRadius:75,
+    top: '65%',
+    right: 10,
+    padding:5,
+    shadowOffset:{  width: 10,  height: 10,  },
     shadowColor: 'rgba(0, 0, 0, 0.32)',
     shadowOpacity: 1.0,
     zIndex:1000
