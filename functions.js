@@ -8,3 +8,5 @@ module.exports _getLocationAsync = async () => {
   let location = await Location.getCurrentPositionAsync({});
   this.setState({ location });
 }
+
+var x;
